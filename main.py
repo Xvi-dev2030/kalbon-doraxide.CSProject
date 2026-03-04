@@ -6,7 +6,14 @@ def print_header():
     print("=" * 60)  # bottom border
     print("\nThis tool helps you check your mental health.")  # explain what this is
     print("Answer honestly. No one will see this but you.\n")  # reassure them it's private
-    print("=" * 60 + "\n")  # separator
+def menu():
+    print("\nMenu Options:")
+    print("1. Start")
+    print("2. View Stats")
+    print("3. Quit")
+    choice = int(input("Enter your choice (1. Start, 2. Show stats, or 3. Quit): "))
+    return choice
+
 
 def get_user_info():
     # ask for basic info about the person
@@ -55,6 +62,7 @@ def get_user_info():
     print("\n" + "=" * 60 + "\n")  # end of section
     return name, age, gen, cat, dur, prev  # send back all the info we collected
 
+
 def ask_q(q, num):
     # ask a single question and get the answer
     print("\nQ" + str(num) + ": " + q)  # show question number and text
@@ -63,6 +71,7 @@ def ask_q(q, num):
         print(o)
     ans = input("Answer (0-4): ")  # get their answer
     return int(ans)  # convert to number and return
+
 
 def get_qs(gen, age):
     # store all the questions organized by type, gender, and age
@@ -98,7 +107,7 @@ def get_qs(gen, age):
                     "How often do you withdraw from friends and family?",
                     "Do you find it difficult to get motivated in the morning?",
                     "How often do you experience changes in your appetite or sleep?"
-                ] #a
+                ]
             }
         },
         'emotional': {
@@ -150,6 +159,7 @@ def get_qs(gen, age):
     # return both behavioral and emotional questions
     return qs['behavioral'][gen_key][age_key], qs['emotional'][gen_key][age_key]
 
+
 def do_assessment(gen, age):
     # run through all the questions and collect answers
     beh_qs, emo_qs = get_qs(gen, age)  # get the right questions for this person
@@ -179,6 +189,7 @@ def do_assessment(gen, age):
     print("\n" + "=" * 60 + "\n")  # end of assessment
 
     return beh_scores, emo_scores  # send back both lists of scores
+
 
 def calc_score(beh, emo, dur):
     # calculate the final score and severity level
@@ -210,6 +221,7 @@ def calc_score(beh, emo, dur):
         sev = 4
 
     return tot, lvl, sev  # send back total score, level name, and severity number
+
 
 def show_results(name, cat, dur, prev, tot, lvl, sev):
     # display all the results in a nice format
@@ -300,6 +312,7 @@ def show_results(name, cat, dur, prev, tot, lvl, sev):
         print("- " + r)
     print("=" * 60 + "\n")
 
+
 def main():
     # this is where everything runs
     print_header()  # show title and intro
@@ -327,7 +340,7 @@ def main():
     print("⠀⠀⠀⠀⠀⠀⠀⠀⢠⣠⣴⣿⡿⣿⣧⣤⡀⡀⠀⠀⠀⠀⠀⠀⠀⠀")
     print("⠀⠀⠀⠀⠀⠀⠀⠨⢿⡷⣾⡿⢳⠿⣿⣶⣿⢖⠀⠀⠀⠀⠀⠀⠀⠀")
     print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣯⣏⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-    print("⠀⠀⢀⣀⡄⠀⠀⠀ ⠀⣠⣿⡼⣾⣇⡀⠀⠀⠀⠀⠀⣀⠄⠀⠀⠀")
+    print("⠀⠀⢀⣀⡄⠀⠀⠀⠀⠀⣠⣿⡼⣾⣇⡀⠀⠀⠀⠀⠀⣀⠄⠀⠀⠀")
     print("⠀⠀⣾⢿⣱⠀⠀⠀⠀⣰⣭⣿⣿⣿⣿⣇⢀⠀⠀⠀⣐⣾⣿⠀⠀⠀")
     print("⣄⣦⣿⡿⣿⠷⣾⣿⣷⡟⣷⣿⣿⣿⣷⡟⣷⣿⣷⡾⣟⠿⣿⣤⣆⠄")
     print("⠙⠻⠿⣿⣏⣿⣷⠿⢿⢟⡏⣿⣿⣿⣟⣿⢟⡿⠷⣿⣻⣿⡿⠿⠋⠈")
@@ -344,8 +357,34 @@ def main():
     print(" ⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⣽⣽⣽⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
     print(" ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
 
-main()
+def main():
+    while True:
+        user_choice = menu()
+
+        if user_choice == 1:
+            print("Starting game...")
+            get_user_info()
+            ask_q(q, num)
+            get_qs(gen, age)
+            do_assessment(gen, age)
+            calc_score(beh, emo, dur)
+            show_results(name, cat, dur, prev, tot, lvl, sev)
+
+        elif user_choice == 2:
+            print("Showing stats..")
+            print("Developers:")
+            print("a. Amurao, Camylle B.")
+            print("b. Guieb, Gebriel Ann-Rhea")
+            print("c. Manipon, Jae Reese V.")
+
+        elif user_choice == 3:
+            print("Exiting program.. Goodbye!")
+            break
+
+        else:
+            print("Invalid input. Please try again.")
 
 
-print("Geb pushed")
 
+if __name__ == "__main__":
+    main()
