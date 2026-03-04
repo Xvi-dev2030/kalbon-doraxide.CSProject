@@ -98,7 +98,7 @@ def get_qs(gen, age):
                     "How often do you withdraw from friends and family?",
                     "Do you find it difficult to get motivated in the morning?",
                     "How often do you experience changes in your appetite or sleep?"
-                ]
+                ] #a
             }
         },
         'emotional': {
