@@ -379,6 +379,7 @@ def main():
             print("⠀⠀⠀⠀⠀⠀⠀⠸⠿⣿⣿⣿⡄⣿⣿⣿⠿⠮⠆⠀⠀⠀⠀⠀⠀⠀")
             print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣽⣽⣽⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
             print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            break
 
         elif user_choice == 2:
             print("Showing stats..")
