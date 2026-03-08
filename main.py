@@ -6,12 +6,18 @@ def print_header():
     print("=" * 60)  # bottom border
     print("\nThis tool helps you check your mental health.")  # explain what this is
     print("Answer honestly. No one will see this but you.\n")  # reassure them it's private
+
+
 def menu():
     print("\nMenu Options:")
     print("1. Start")
     print("2. View Stats")
     print("3. Quit")
-    choice = int(input("Enter your choice (1. Start, 2. Show stats, or 3. Quit): "))
+
+    try:
+        choice = int(input("Enter your choice (1. Start, 2. Show stats, or 3. Quit): "))
+    except ValueError:
+        choice = -1  # return invalid choice so main() can handle it gracefully
     return choice
 
 
@@ -21,7 +27,17 @@ def get_user_info():
     print("-" * 40)  # section divider
 
     name = input("Name: ")  # get their name
-    age = int(input("Age: "))  # get their age and convert to number
+
+    # validate age input so non-numeric input doesn't crash
+    while True:
+        try:
+            age = int(input("Age: "))
+            if age <= 0 or age > 120:
+                print("Please enter a valid age.")
+                continue
+            break
+        except ValueError:
+            print("Please enter a number for age.")
 
     # let them pick their gender from options
     gen_opts = {'1': 'Male', '2': 'Female', '3': 'Non-binary/Other', '4': 'Prefer not to say'}
@@ -64,13 +80,20 @@ def get_user_info():
 
 
 def ask_q(q, num):
-    # ask a single question and get the answer
-    print("\nQ" + str(num) + ": " + q)  # show question number and text
-    opts = ["0. Never", "1. Rarely", "2. Sometimes", "3. Often", "4. Always"]  # answer choices
-    for o in opts:  # show each option
-        print(o)
-    ans = input("Answer (0-4): ")  # get their answer
-    return int(ans)  # convert to number and return
+    opts = ["0. Never", "1. Rarely", "2. Sometimes", "3. Often", "4. Always"]
+    while True:
+        print("\nQ" + str(num) + ": " + q)  # show question number and text
+        for o in opts:  # show each option
+            print(o)
+        ans = input("Answer (0-4): ")  # get their answer
+        try:
+            val = int(ans)
+            if 0 <= val <= 4:
+                return val
+            else:
+                print("Please enter a number between 0 and 4.")
+        except ValueError:
+            print("Please enter a number between 0 and 4.")
 
 
 def get_qs(gen, age):
@@ -151,9 +174,11 @@ def get_qs(gen, age):
         age_key = 'under18'
     else:
         age_key = 'adult'
+
     if gen in ['Male', 'Female']:
         gen_key = gen
     else:
+        print("(Note: Using general questions for your gender selection.)")
         gen_key = 'Male'
 
     # return both behavioral and emotional questions
@@ -220,10 +245,10 @@ def calc_score(beh, emo, dur):
         lvl = "Severe"
         sev = 4
 
-    return tot, lvl, sev  # send back total score, level name, and severity number
+    return tot, adj, lvl, sev
 
 
-def show_results(name, cat, dur, prev, tot, lvl, sev):
+def show_results(name, cat, dur, prev, tot, adj, lvl, sev):
     # display all the results in a nice format
     print("=" * 60)
     print(" " * 22 + "RESULTS")  # centered header
@@ -232,7 +257,10 @@ def show_results(name, cat, dur, prev, tot, lvl, sev):
     print("Category: " + cat)  # show their category
     print("How long: " + dur)  # show duration
     print("Talked to someone before: " + prev)  # show if they had previous treatment
-    print("\nYour Score: " + str(tot) + "/40")  # show their total score out of 40
+    print("\nYour Raw Score: " + str(tot) + "/40")  # show their total raw score out of 40
+
+    if adj != tot:
+        print("Adjusted Score: " + str(round(adj, 1)) + "/44 (duration multiplier applied)")
     print("Level: " + lvl.upper())  # show severity level in caps
     print("-" * 60)
 
@@ -314,61 +342,43 @@ def show_results(name, cat, dur, prev, tot, lvl, sev):
 
 
 def main():
-    # this is where everything runs
-    print_header()  # show title and intro
-
-    # collect user information
-    name, age, gen, cat, dur, prev = get_user_info()
-
-    # run the assessment questions
-    beh, emo = do_assessment(gen, age)
-
-    # calculate their score and severity
-    tot, lvl, sev = calc_score(beh, emo, dur)
-
-    # show them everything
-    show_results(name, cat, dur, prev, tot, lvl, sev)
-
-    # closing messages
-    print("Thanks for taking the time to do this.")
-    print("Taking care of your mental health is important. Don't forget that.\n")
-    print("If you're pagod sa buhay, wag mo na lang ituloy. JOKE HAHAHA")  # filipino joke
-    print("But seriously, get help if you need it. Peace out.\n")
-
-    print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-    print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣬⣾⣮⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-    print("⠀⠀⠀⠀⠀⠀⠀⠀⢠⣠⣴⣿⡿⣿⣧⣤⡀⡀⠀⠀⠀⠀⠀⠀⠀⠀")
-    print("⠀⠀⠀⠀⠀⠀⠀⠨⢿⡷⣾⡿⢳⠿⣿⣶⣿⢖⠀⠀⠀⠀⠀⠀⠀⠀")
-    print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣯⣏⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-    print("⠀⠀⢀⣀⡄⠀⠀⠀⠀⠀⣠⣿⡼⣾⣇⡀⠀⠀⠀⠀⠀⣀⠄⠀⠀⠀")
-    print("⠀⠀⣾⢿⣱⠀⠀⠀⠀⣰⣭⣿⣿⣿⣿⣇⢀⠀⠀⠀⣐⣾⣿⠀⠀⠀")
-    print("⣄⣦⣿⡿⣿⠷⣾⣿⣷⡟⣷⣿⣿⣿⣷⡟⣷⣿⣷⡾⣟⠿⣿⣤⣆⠄")
-    print("⠙⠻⠿⣿⣏⣿⣷⠿⢿⢟⡏⣿⣿⣿⣟⣿⢟⡿⠷⣿⣻⣿⡿⠿⠋⠈")
-    print("⠀⠀⠀⠩⢻⣿⡄⠀⠀⠈⠻⣼⣿⣿⡸⠋⠁⠀⠀⢸⡿⡓⠁⠀⠀⠀")
-    print("⠀⠀⠀⠀⠀⠙⠀⠀⠀⠀⠀⢿⣿⣿⠃⠀⠀⠀⠀⠘⠉⠀⠀⠀⠀⠀")
-    print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣺⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-    print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣹⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-    print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-    print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣽⣿⣿⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-    print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⢷⢿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-    print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⠋⢟⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-    print("⠀⠀⠀⠀⠀⠀⠀⠀⣀⣿⣿⣫⣆⣮⣛⣿⡅⡀⠀⠀⠀⠀⠀⠀⠀⠀")
-    print("⠀⠀⠀⠀⠀⠀⠀⠸⠿⣿⣿⣿⡄⣿⣿⣿⠿⠮⠆⠀⠀⠀⠀⠀⠀⠀")
-    print(" ⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⣽⣽⣽⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-    print(" ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-
-def main():
     while True:
         user_choice = menu()
 
         if user_choice == 1:
-            print("Starting game...")
-            get_user_info()
-            ask_q(q, num)
-            get_qs(gen, age)
-            do_assessment(gen, age)
-            calc_score(beh, emo, dur)
-            show_results(name, cat, dur, prev, tot, lvl, sev)
+            print_header()
+            name, age, gen, cat, dur, prev = get_user_info()
+            beh, emo = do_assessment(gen, age)
+
+            tot, adj, lvl, sev = calc_score(beh, emo, dur)
+            show_results(name, cat, dur, prev, tot, adj, lvl, sev)
+
+            # closing messages
+            print("Thanks for taking the time to do this.")
+            print("Taking care of your mental health is important. Don't forget that.\n")
+            print("If you're pagod sa buhay, wag mo na lang ituloy. JOKE HAHAHA")  # filipino joke
+            print("But seriously, get help if you need it. Peace out.\n")
+
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣬⣾⣮⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⢠⣠⣴⣿⡿⣿⣧⣤⡀⡀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠨⢿⡷⣾⡿⢳⠿⣿⣶⣿⢖⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣯⣏⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⢀⣀⡄⠀⠀⠀⠀⠀⣠⣿⡼⣾⣇⡀⠀⠀⠀⠀⠀⣀⠄⠀⠀⠀")
+            print("⠀⠀⣾⢿⣱⠀⠀⠀⠀⣰⣭⣿⣿⣿⣿⣇⢀⠀⠀⠀⣐⣾⣿⠀⠀⠀")
+            print("⣄⣦⣿⡿⣿⠷⣾⣿⣷⡟⣷⣿⣿⣿⣷⡟⣷⣿⣷⡾⣟⠿⣿⣤⣆⠄")
+            print("⠙⠻⠿⣿⣏⣿⣷⠿⢿⢟⡏⣿⣿⣿⣟⣿⢟⡿⠷⣿⣻⣿⡿⠿⠋⠈")
+            print("⠀⠀⠀⠩⢻⣿⡄⠀⠀⠈⠻⣼⣿⣿⡸⠋⠁⠀⠀⢸⡿⡓⠁⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠙⠀⠀⠀⠀⠀⢿⣿⣿⠃⠀⠀⠀⠀⠘⠉⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣺⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣹⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣽⣿⣿⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⢷⢿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⠋⢟⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⣀⣿⣿⣫⣆⣮⣛⣿⡅⡀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠸⠿⣿⣿⣿⡄⣿⣿⣿⠿⠮⠆⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣽⣽⣽⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
 
         elif user_choice == 2:
             print("Showing stats..")
@@ -383,7 +393,6 @@ def main():
 
         else:
             print("Invalid input. Please try again.")
-
 
 
 if __name__ == "__main__":
