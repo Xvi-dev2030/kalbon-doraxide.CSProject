@@ -10,7 +10,7 @@ def print_header():
     print("Read the questions carefully.")
     print("Answer honestly.☺️")
 
-
+    #GETTING THE MENU
 def menu():
     print("\nMenu Options:")
     print("1. Start")
@@ -18,17 +18,17 @@ def menu():
     print("3. Quit")
 
     try:
-        choice = int(input("Enter your choice (1. Start, 2. Show stats, or 3. Quit): "))
+        choice = int(input("Enter your choice (1. Start, 2. Show stats, or 3. Quit): "))#CHOICE AS VARIABLE FOR MENU CHOICES
     except ValueError:
         choice = -1  # return invalid choice so main() can handle it gracefully
     return choice
 
-
+    #GETTING USER INFO
 def get_user_info():
     # ask for basic info about the person
     print("PART 1: About You")
     print("-" * 40)  # section divider
-
+    #GETTING USERS NAME
     name = input("Name: ")  # get their name
 
     # validate age input so non-numeric input doesn't crash
@@ -362,26 +362,26 @@ def main():
             print("If you're pagod sa buhay, wag mo na lang ituloy. JOKE HAHAHA")  # filipino joke
             print("But seriously, get help if you need it. Peace out.\n")
 
-            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣬⣾⣮⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-            print("⠀⠀⠀⠀⠀⠀⠀⠀⢠⣠⣴⣿⡿⣿⣧⣤⡀⡀⠀⠀⠀⠀⠀⠀⠀⠀")
-            print("⠀⠀⠀⠀⠀⠀⠀⠨⢿⡷⣾⡿⢳⠿⣿⣶⣿⢖⠀⠀⠀⠀⠀⠀⠀⠀")
-            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣯⣏⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀  ⠀⠀⣬⣾⣮⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀ ⠀⢠⣠⣴⣿⡿⣿⣧⣤⡀⡀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀ ⠨⢿⡷⣾⡿⢳⠿⣿⣶⣿⢖⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⢸⣯⣏⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
             print("⠀⠀⢀⣀⡄⠀⠀⠀⠀⠀⣠⣿⡼⣾⣇⡀⠀⠀⠀⠀⠀⣀⠄⠀⠀⠀")
             print("⠀⠀⣾⢿⣱⠀⠀⠀⠀⣰⣭⣿⣿⣿⣿⣇⢀⠀⠀⠀⣐⣾⣿⠀⠀⠀")
             print("⣄⣦⣿⡿⣿⠷⣾⣿⣷⡟⣷⣿⣿⣿⣷⡟⣷⣿⣷⡾⣟⠿⣿⣤⣆⠄")
             print("⠙⠻⠿⣿⣏⣿⣷⠿⢿⢟⡏⣿⣿⣿⣟⣿⢟⡿⠷⣿⣻⣿⡿⠿⠋⠈")
             print("⠀⠀⠀⠩⢻⣿⡄⠀⠀⠈⠻⣼⣿⣿⡸⠋⠁⠀⠀⢸⡿⡓⠁⠀⠀⠀")
-            print("⠀⠀⠀⠀⠀⠙⠀⠀⠀⠀⠀⢿⣿⣿⠃⠀⠀⠀⠀⠘⠉⠀⠀⠀⠀⠀")
-            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣺⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣹⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣽⣿⣿⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⢷⢿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⠋⢟⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-            print("⠀⠀⠀⠀⠀⠀⠀⠀⣀⣿⣿⣫⣆⣮⣛⣿⡅⡀⠀⠀⠀⠀⠀⠀⠀⠀")
-            print("⠀⠀⠀⠀⠀⠀⠀⠸⠿⣿⣿⣿⡄⣿⣿⣿⠿⠮⠆⠀⠀⠀⠀⠀⠀⠀")
-            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣽⣽⣽⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
-            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠙⠀⠀⠀ ⠀⠀⢿⣿⣿⠃⠀⠀⠀⠀⠘⠉⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⣺⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⣹⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⢹⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⣽⣿⣿⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⢠⣿⢷⢿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⢠⣿⣿⠋⢟⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀ ⣀⣿⣿⣫⣆⣮⣛⣿⡅⡀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀ ⠀⠀⠸⠿⣿⣿⣿⡄⣿⣿⣿⠿⠮⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀  ⠀⣽⣽⣽⣽⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
+            print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  ⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
             break
 
         elif user_choice == 2:
