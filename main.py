@@ -5,7 +5,10 @@ def print_header():
     print(" " * 12 + "Am I Depressed?")  # centered subtitle
     print("=" * 60)  # bottom border
     print("\nThis tool helps you check your mental health.")  # explain what this is
-    print("Answer honestly. No one will see this but you.\n")  # reassure them it's private
+    print("No one will see this but you.\n")  # reassure them it's private
+    print("-" * 60)
+    print("Read the questions carefully.")
+    print("Answer honestly.☺️")
 
     #GETTING THE MENU
 def menu():
