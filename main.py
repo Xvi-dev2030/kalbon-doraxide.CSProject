@@ -275,7 +275,7 @@ def show_results(name, cat, dur, prev, tot, adj, lvl, sev):
     elif sev == 3:
         msg = "Okay, so things are pretty rough right now. This is affecting\nyour daily life and you shouldn't have to deal with this alone.\nSeriously consider talking to a professional. There's no shame\nin getting help - that's what they're there for."
     else:
-        msg = "Listen, things are really bad right now. You need to talk to\nsomeone ASAP. Like, today if possible. You don't deserve to feel\nthis way and there are people who can actually help. Please don't\nbrush this off - reach out to someone."
+        msg = "Listen, things are really bad right now. You need to talk to\nsomeone ASAP. Like, today if possible. You don't deserve to feel\nthis way and there are people who can actually help. Please don't\nbrush this off - reach out to someone you trust."
 
     print("\nWhat This Means:")
     print("\n" + msg)  # show the message that matches their severity
@@ -359,7 +359,8 @@ def main():
             # closing messages
             print("Thanks for taking the time to do this.")
             print("Taking care of your mental health is important. Don't forget that.\n")
-            print("If you're pagod sa buhay, wag mo na lang ituloy. JOKE HAHAHA")  # filipino joke
+            print("If pagod  kana sa buhay, wag mo nalang ituloy. Joke lang")  # filipino joke
+            print("If you're not comfortable in talking to someone, remember God is with you.")
             print("But seriously, get help if you need it. Peace out.\n")
 
             print("⠀⠀⠀⠀⠀⠀⠀⠀⠀  ⠀⠀⣬⣾⣮⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
