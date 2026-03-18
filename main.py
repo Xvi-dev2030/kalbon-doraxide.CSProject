@@ -1,5 +1,3 @@
-import time
-
 def print_header():
     # show the title and intro text
     print("=" * 60)  # top border
@@ -12,7 +10,7 @@ def print_header():
     print("Read the questions carefully.")
     print("Answer honestly.☺️")
 
-    #SHOWING THE MENU
+    #GETTING THE MENU
 def menu():
     print("\nMenu Options:")
     print("1. Start")
@@ -24,8 +22,6 @@ def menu():
     except ValueError:
         choice = -1  # return invalid choice so main() can handle it gracefully
     return choice
-
-#-----------------------------------------------------------------------------------------------------------------------
 
     #GETTING USER INFO
 def get_user_info():
@@ -53,7 +49,7 @@ def get_user_info():
     for k in gen_opts:
         print(k + ". " + gen_opts[k])
 
-    gencho = int(input("Pick one (1-4): "))  # get their choice
+    gencho = input("Pick one (1-4): ")  # get their choice
     gen = gen_opts.get(gencho, 'Prefer not to say')  # match choice to gender, default if invalid
 
     # figure out their category based on age
@@ -85,7 +81,6 @@ def get_user_info():
     print("\n" + "=" * 60 + "\n")  # end of section
     return name, age, gen, cat, dur, prev  # send back all the info we collected
 
-#-----------------------------------------------------------------------------------------------------------------------
 
 def ask_q(q, num):
     opts = ["0. Never", "1. Rarely", "2. Sometimes", "3. Often", "4. Always"]
@@ -177,7 +172,6 @@ def get_qs(gen, age):
         }
     }
 
-#-----------------------------------------------------------------------------------------------------------------------
     # pick the right questions based on their age and gender
     if age < 18:
         age_key = 'under18'
@@ -259,49 +253,37 @@ def calc_score(beh, emo, dur):
 
 def show_results(name, cat, dur, prev, tot, adj, lvl, sev):
     # display all the results in a nice format
-    time.sleep(0.5)
     print("=" * 60)
     print(" " * 22 + "RESULTS")  # centered header
     print("=" * 60)
     print("\nName: " + name)  # show their name
     print("Category: " + cat)  # show their category
     print("How long: " + dur)  # show duration
-    time.sleep(0.5)
     print("Talked to someone before: " + prev)  # show if they had previous treatment
-    time.sleep(0.5)
     print("\nYour Raw Score: " + str(tot) + "/40")  # show their total raw score out of 40
 
     if adj != tot:
-        time.sleep(0.5)
         print("Adjusted Score: " + str(round(adj, 1)) + "/44 (duration multiplier applied)")
-    time.sleep(0.5)
     print("Level: " + lvl.upper())  # show severity level in caps
     print("-" * 60)
 
     # explain what their score means in simple terms
     if sev == 1:
-        time.sleep(0.5)
         msg = "You're doing okay. Everyone has bad days, and it looks like\nyou're going through normal ups and downs. Just keep an eye\non how you're feeling and take care of yourself."
     elif sev == 2:
-        time.sleep(0.5)
         msg = "You're having some rough patches. Things aren't great but\nthey're not terrible either. Maybe try some self-care stuff\nand see if things get better. If not, consider talking to someone."
     elif sev == 3:
-        time.sleep(0.5)
         msg = "Okay, so things are pretty rough right now. This is affecting\nyour daily life and you shouldn't have to deal with this alone.\nSeriously consider talking to a professional. There's no shame\nin getting help - that's what they're there for."
     else:
-        time.sleep(0.5)
-        msg = "Listen, things are really bad right now. You need to talk to\nsomeone ASAP. Like, today if possible. You don't deserve to feel\nthis way and there are people who can actually help. Please don't\nbrush this off - reach out to someone."
+        msg = "Listen, things are really bad right now. You need to talk to\nsomeone ASAP. Like, today if possible. You don't deserve to feel\nthis way and there are people who can actually help. Please don't\nbrush this off - reach out to someone you trust."
 
     print("\nWhat This Means:")
-    time.sleep(0.5)
     print("\n" + msg)  # show the message that matches their severity
     print("-" * 60)
 
     # give them action steps based on severity
-    time.sleep(0.5)
     print("\nWhat You Should Do:")
     if sev <= 2:
-        time.sleep(0.5)
         tips = [
             "Exercise, even just walking around",
             "Eat decent food and sleep enough",
@@ -311,7 +293,6 @@ def show_results(name, cat, dur, prev, tot, adj, lvl, sev):
             "If things get worse, get professional help"
         ]
     else:
-        time.sleep(0.5)
         tips = [
             "TALK TO A PROFESSIONAL - like actually do it",
             "See a doctor or therapist",
@@ -324,35 +305,28 @@ def show_results(name, cat, dur, prev, tot, adj, lvl, sev):
         print("\n- " + t)
 
     # show crisis hotline numbers
-    time.sleep(1)
     print("\n" + "=" * 60)
     print(" " * 18 + "GET HELP HERE")  # centered
     print("=" * 60)
-    time.sleep(0.5)
     print("\nLUZON HOTLINES:")
-    time.sleep(0.5)
     print("-" * 60)
     print("NCMH Crisis Hotline")
     print(" 1553 (Nationwide landline toll-free) 1800-1888-1553")
     print()
     print("DOH Mental Health Hotline")
     print(" 1555 (works on PLDT, Smart, Sun, TNT)")
-    time.sleep(0.5)
     print()
     print("Emergency: 911")
     print("-" * 60)
 
     # extra warning for severe cases
     if sev == 4:
-        time.sleep(0.5)
         print("\n!! If you're thinking about hurting yourself, call one of")
         print("these numbers NOW or go to the ER. Seriously. Don't wait.")
 
     # disclaimer and encouragement
-    time.sleep(0.5)
     print("\n" + "=" * 60)
     print("\nBtw:")
-    time.sleep(0.5)
     print("This is just a screening tool, not a diagnosis. Only a real")
     print("professional can tell you for sure what's going on. But if this")
     print("test is showing red flags, take it seriously and get checked out.")
@@ -366,7 +340,6 @@ def show_results(name, cat, dur, prev, tot, adj, lvl, sev):
         "You matter"
     ]
     for r in rems:
-        time.sleep(1)
         print("- " + r)
     print("=" * 60 + "\n")
 
@@ -384,15 +357,11 @@ def main():
             show_results(name, cat, dur, prev, tot, adj, lvl, sev)
 
             # closing messages
-            time.sleep(2)
             print("Thanks for taking the time to do this.")
-            time.sleep(0.5)
             print("Taking care of your mental health is important. Don't forget that.\n")
-            time.sleep(0.5)
-            print("If you're pagod sa buhay, wag mo na lang ituloy. JOKE HAHAHA")  # filipino joke
-            time.sleep(1)
+            print("If pagod  kana sa buhay, wag mo nalang ituloy. Joke lang")  # filipino joke
+            print("If you're not comfortable in talking to someone, remember God is with you.")
             print("But seriously, get help if you need it. Peace out.\n")
-            time.sleep(0.5)
 
             print("⠀⠀⠀⠀⠀⠀⠀⠀⠀  ⠀⠀⣬⣾⣮⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀")
             print("⠀⠀⠀⠀⠀⠀⠀ ⠀⢠⣠⣴⣿⡿⣿⣧⣤⡀⡀⠀⠀⠀⠀⠀⠀⠀⠀")
@@ -417,22 +386,17 @@ def main():
             break
 
         elif user_choice == 2:
-            time.sleep(0.5)
             print("Showing stats..")
-            time.sleep(2)
             print("Developers:")
-            time.sleep(0.5)
             print("a. Amurao, Camylle B.")
             print("b. Guieb, Gebriel Ann-Rhea")
             print("c. Manipon, Jae Reese V.")
 
         elif user_choice == 3:
-            time.sleep(2)
             print("Exiting program.. Goodbye!")
             break
 
         else:
-            time.sleep(0.3)
             print("Invalid input. Please try again.")
 
 
