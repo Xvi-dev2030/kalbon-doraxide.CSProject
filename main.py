@@ -60,15 +60,19 @@ def get_user_info():
     for k in gen_opts:
         print(k + ". " + gen_opts[k])
 
-    gencho = input("Pick one (1-4): ")  # get their choice
-    gen = gen_opts.get(gencho, 'Prefer not to say')  # match choice to gender, default if invalid
+    while True:
+        gencho = int(input("Pick one (1-4): "))  # get their choice
+        gen = gen_opts.get(gencho, 'Prefer not to say')  # match choice to gender, default if invalid
 
-    # figure out their category based on age
-    if age < 18:
-        age_grp = "Below 18"
-    else:
-        age_grp = "18 or older"
-    cat = gen + " (" + age_grp + ")"  # combine gender and age group
+        if gencho < 0:
+            # figure out their category based on age
+            if age < 18:
+                age_grp = "Below 18"
+            else:
+                age_grp = "18 or older"
+            cat = gen + " (" + age_grp + ")"  # combine gender and age group
+        else:
+            print("Invalid input. Please input a number from 1-4.")
 
     # ask how long they've been feeling this way
     dur_opts = {'1': 'Less than 2 weeks', '2': '2 weeks to 1 month', '3': '1 to 3 months', '4': 'More than 3 months'}
